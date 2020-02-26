@@ -78,6 +78,8 @@ Cookie.prototype.newRenderContain = function () {
         tdEl.textContent = this.Arr[i];
         trEl.appendChild(tdEl);
     }
+
+
     tdEl = document.createElement('td');
     tdEl.textContent = this.Total();
     trEl.appendChild(tdEl);
@@ -101,17 +103,18 @@ Cookie.prototype.newRenderFooter = function () {
         }
         y += 1; 
     }
-    
     var result = Shop[0].totalCookies+Shop[1].totalCookies+Shop[2].totalCookies+Shop[3].totalCookies+Shop[4].totalCookies;
-
-
     var tdE2 = document.createElement('td');
     tdE2.textContent=result;
     trE2.appendChild(tdE2);
-
-
     myLocationTable.appendChild(trE2);
 };
+
+Cookie.prototype.deleteRow = function (){
+  var parentTableEl = document.getElementById('table');
+  var childTableRowEl = document.getElementById(this.locationName);
+  parentTableEl.removeChild(childTableRowEl);
+}
 
 var Seattle = new Cookie('Seattle', 23, 65, 6.3, 'Seattle');
 var Tokyo = new Cookie('Tokyo', 3, 24, 1.2, 'Tokyo');
@@ -119,11 +122,54 @@ var Dubai = new Cookie('Dubai', 11, 38, 3.7, 'Dubai');
 var Paris = new Cookie('Paris', 20, 38, 2.3, 'Paris');
 var Lima = new Cookie('Lima', 2, 16, 4.6, 'Lima');
 
+var myForm = document.getElementById('SalmonForm');
+myForm.addEventListener('submit', function(event) {
+  event.preventDefault();
+  console.log(event);
+  console.log(event.target);
+  var locationName = event.target.locationName.value;
+  console.log(locationName);
+  var MinCust = parseInt(event.target.MinCust.value);
+  console.log(MinCust);
+  var MaxCust = parseInt(event.target.MaxCust.value);
+  console.log(MaxCust);
+  var AvgCookieSale = parseFloat(event.target.AvgCookieSale.value);
+  console.log(AvgCookieSale);
+
+//    if(Shop.Cookie = event.target.locationName.value){
+//     alert('sorry ,you cant repeat same data');
+// }
+
+  if (!event.target.locationName.value || !event.target.MinCust.value || !event.target.MaxCust.value || !event.target.AvgCookieSale.value) {
+    return alert('Please , you forget to fill something.');
+}
+
+if (event.target.MinCust.value < 0 || event.target.MaxCust.value < 0 || event.target.AvgCookieSale.value < 0) {
+    return alert('Stop give me nigtive values');
+}
+
+if (event.target.MinCust.value > event.target.MaxCust.value) {
+    return alert('Thats not allowed , max cust should be greater than min cust');
+}
+ 
+  var SalmonObj = new Cookie(locationName,MinCust,MaxCust,AvgCookieSale);
+  
+  SalmonObj.cookiesPurchasPerHour();
+  SalmonObj.getAllLocationTotalSameTime();
+  SalmonObj.newRenderContain();
+  myForm.reset();
+})
+
+// Cookie.prototype.intoRander = function () {
+// }
+// myLocationTable.appendChild(trEl);
+
 Shop[0].newRenderHeader();
 for (var i = 0; i < Shop.length; i++) {
     Shop[i].cookiesPurchasPerHour();
     Shop[i].newRenderContain();
-    Shop[i].getAllLocationTotalSameTime();
-
+    Shop[i].getAllLocationTotalSameTime()
 }
-Shop[3].newRenderFooter();
+Shop[1].newRenderFooter();
+
+
