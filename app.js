@@ -10,10 +10,10 @@ function Cookie(locationName, MinCust, MaxCust, AvgCookieSale, Location) {
     this.AvgCookieSale = AvgCookieSale;
     this.Location = Location;
     this.Arr = [];
-    this.ArrTotal =[];
+    this.ArrTotal = [];
     this.Customers = 0;
     this.count = 0;
-    this.totalCookies =0;
+    this.totalCookies = 0;
     Shop.push(this);
 }
 
@@ -26,7 +26,7 @@ Cookie.prototype.cookiesPurchasPerHour = function () {
         var hourRandom = Math.round(Math.floor(((Math.random() * (this.MaxCust - this.MinCust)) + this.MinCust)));
         var cookieshour = Math.round(Math.floor(hourRandom * this.AvgCookieSale));
         this.Arr[i] = cookieshour;
-        
+
     }
 }
 
@@ -35,7 +35,7 @@ Cookie.prototype.Total = function () {
     for (var i = 0; i < workHours.length; i++) {
         sum = sum + this.Arr[i];
     }
-    return this.totalCookies =  sum;
+    return this.totalCookies = sum;
 }
 
 Cookie.prototype.getRandomNumber = function (min, max) {
@@ -43,26 +43,27 @@ Cookie.prototype.getRandomNumber = function (min, max) {
     return Cust;
 }
 
-var allLocation = ['Scattl','Tokyo','Dubai','Paris','Lima'];
-Cookie.prototype.getAllLocationTotalSameTime = function (){
-  }
+var allLocation = ['Scattl', 'Tokyo', 'Dubai', 'Paris', 'Lima'];
+Cookie.prototype.getAllLocationTotalSameTime = function () {
+}
 
 var myLocationTable = document.getElementById('salmonFish');
 
 Cookie.prototype.newRenderHeader = function () {
-    var table = document.createElement(table);
+    var table = document.createElement('table');
     var trEl = document.createElement('tr');
     var thEl = document.createElement('th');
     trEl.appendChild(thEl);
     for (var i = 0; i < workHours.length; i++) {
         thEl = document.createElement('th');
-        thEl.textContent = workHours[i];
+        thEl.textContent = workHours[i]+ "~" ;
         trEl.appendChild(thEl);
     };
     var thE2 = document.createElement('th');
     thE2 = document.createElement('th');
     thE2.textContent = 'Daily Location Total';
     trEl.appendChild(thE2);
+    table.appendChild(trEl);
     myLocationTable.appendChild(trEl);
 }
 
@@ -71,45 +72,46 @@ Cookie.prototype.newRenderContain = function () {
     var tdEl = document.createElement('td');
     tdEl.textContent = this.locationName;
     trEl.appendChild(tdEl);
-  
-    for (var i = 0; i < workHours.length; i++){
-      tdEl = document.createElement('td');
-      tdEl.textContent = this.Arr[i];
-      trEl.appendChild(tdEl);
+
+    for (var i = 0; i < workHours.length; i++) {
+        tdEl = document.createElement('td');
+        tdEl.textContent = this.Arr[i];
+        trEl.appendChild(tdEl);
     }
     tdEl = document.createElement('td');
     tdEl.textContent = this.Total();
     trEl.appendChild(tdEl);
     myLocationTable.appendChild(trEl);
-  };
+};
 
-  Cookie.prototype.newRenderFooter= function () {
-    var trEl = document.createElement('tr');
-    var tdEl = document.createElement('td');
-    tdEl.textContent = "Totals";
-    trEl.appendChild(tdEl);
+Cookie.prototype.newRenderFooter = function () {
+    var trE2 = document.createElement('tr');
+    var tdE2 = document.createElement('td');
+    tdE2.textContent = "Totals";
+    trE2.appendChild(tdE2);
 
-    var y=0;  
-    for (var i = 0; i < workHours.length; i++){
-      tdEl = document.createElement('td');
-      trEl.appendChild(tdEl);
-      var x=0;
-      for(var j =0; j<=4;j++){
-        x+=Shop[j].Arr[y];
-        tdEl.textContent =x;
-    }
-        y+=1;
+    var y = 0;
+    for (var i = 0; i < workHours.length; i++) {
+        tdE2 = document.createElement('td');
+        trE2.appendChild(tdE2);
+        var x = 0;
+        for (var j = 0; j <=4; j++) {
+            x += Shop[j].Arr[y];
+            tdE2.textContent = x;
+        }
+        y += 1; 
     }
     
-    // tdEl = document.createElement('td');
-    // var s=0;
-    // for (var q=0;q<=4;q++){
-    //     s+=Shop[q].this.sum;
-    // }
-    // tdEl.textContent = s;
-    // trEl.appendChild(tdEl);
-     myLocationTable.appendChild(trEl);
-  };
+    var result = Shop[0].totalCookies+Shop[1].totalCookies+Shop[2].totalCookies+Shop[3].totalCookies+Shop[4].totalCookies;
+
+
+    var tdE2 = document.createElement('td');
+    tdE2.textContent=result;
+    trE2.appendChild(tdE2);
+
+
+    myLocationTable.appendChild(trE2);
+};
 
 var Seattle = new Cookie('Seattle', 23, 65, 6.3, 'Seattle');
 var Tokyo = new Cookie('Tokyo', 3, 24, 1.2, 'Tokyo');
@@ -122,6 +124,6 @@ for (var i = 0; i < Shop.length; i++) {
     Shop[i].cookiesPurchasPerHour();
     Shop[i].newRenderContain();
     Shop[i].getAllLocationTotalSameTime();
-    
+
 }
 Shop[3].newRenderFooter();
