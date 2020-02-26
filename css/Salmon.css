@@ -121,5 +121,26 @@ body div table tr td {
 }
 
 #salmonFish{
-    
+    margin-left: 0;
+    margin-top: 100px;
+    font-family: 'Georgia' ,'Times','Helvetica' ;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 5px;
+    word-spacing: 2px;
+    text-shadow: 1px 1px red;
+    font-size: 15px;
+}
+
+form{
+    width: 50%;
+    min-height: 15vh;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    padding: 15px;
+    background: linear-gradient(45deg, rgba(213,0,125,0.8), rgba(229,57,53,0.8));
+    font-family: Poppins-Regular, sans-serif;
+    margin-left: 270px;
 }
